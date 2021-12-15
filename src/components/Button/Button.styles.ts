@@ -29,6 +29,10 @@ export const StyledButton = styled.button<StyledButtonType>`
     will-change: transform,box-shadow;
     border: none;
     background: ${props => {
+
+    if (props.disabled) {
+      return 'grey';
+    }
     if (props.variant !== undefined) {
       return props.theme.colors[props.variant];
     }
@@ -37,6 +41,9 @@ export const StyledButton = styled.button<StyledButtonType>`
 
     &:hover {
       background-color: ${props => {
+    if (props.disabled) {
+      return 'grey';
+    }
     if (props.variant !== undefined) {
       return props.theme.colors[`${props.variant}Accent`];
     }

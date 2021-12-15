@@ -1,7 +1,6 @@
 import { NextPage } from 'next';
 import React from 'react'
 import { Container } from '../../common/styles';
-import { UnsupportedNetworkModal } from '../../components/UnsupportedNetworkModal';
 import { Content, WalletDescription, WalletImage, WalletTitle } from './connect-wallet.styles';
 import { WalletsGrid, WalletCard } from './connect-wallet.styles';
 

@@ -4,11 +4,14 @@ import { HomeContext } from '../../pages/index.context'
 import { Card } from '../Card'
 import { CardsGrid, Title, Wrapper } from './Marketplace.styles'
 import { CardSkeleton } from '../Card/CardSkeleton'
+import { usePaginateAssets } from '../../pages/api/asset/assets';
+import { Button } from '../Button'
+import { UnexpectedError } from '../UnexpectedError'
 
 export const Marketplace: React.FC = () => {
   const { searchValue } = useContext(HomeContext);
   const exploreRef = useRef<HTMLDivElement>(null);
-  const [loading, setLoading] = useState<boolean>(true);
+  const { assets, error, isLoadingMore, size, setSize, isReachingEnd } = usePaginateAssets();
 
   const tokens = [
     {
@@ -77,14 +80,6 @@ export const Marketplace: React.FC = () => {
     exploreRef.current?.scrollIntoView();
   }, [searchValue]);
 
-  const _loadAssets = () => {
-    setLoading(false);
-  }
-
-  useEffect(() => {
-    _loadAssets();
-  }, []);
-
   const _renderTitle = () => {
     if (searchValue) {
       return <Title>Search result for: "{searchValue}"</Title>;
@@ -93,13 +88,13 @@ export const Marketplace: React.FC = () => {
   }
 
   const _renderCards = () => {
-    if (tokens.length === 0) {
+    if (assets.length === 0) {
       return <React.Fragment>
         <br />
         <h2>No assets found.</h2>;
       </React.Fragment>
     }
-    if (loading) {
+    if (!assets) {
       return <CardsGrid>
         <CardSkeleton />
         <CardSkeleton />
@@ -107,16 +102,29 @@ export const Marketplace: React.FC = () => {
         <CardSkeleton />
       </CardsGrid>;
     }
+
     return <CardsGrid>
       {tokens.map((token, idx) => <Card key={idx} token={token} />)}
     </CardsGrid>;
   }
 
+  if (error) return <UnexpectedError message={'No assets found'} />
   return (
     <Wrapper ref={exploreRef}>
       <Container>
         {_renderTitle()}
         {_renderCards()}
+        <Button
+          variant='primary'
+          disabled={isLoadingMore || isReachingEnd}
+          onClick={() => setSize(size + 1)}
+        >
+          {isLoadingMore
+            ? 'Loading...'
+            : isReachingEnd
+              ? 'No more assets'
+              : 'Load more'}
+        </Button>
       </Container>
     </Wrapper>
   )
