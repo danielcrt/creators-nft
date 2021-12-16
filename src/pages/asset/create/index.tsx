@@ -1,18 +1,27 @@
 import { NextPage } from 'next'
 import React, { ChangeEvent, useState } from 'react'
-import { Container } from '../../common/styles'
-import { Input } from '../../components/Input'
-import { TextArea } from '../../components/TextArea'
-import { ListingType } from '../../types/ListingType'
-import { AssetType } from '../../types/AssetType'
+import { Container } from '../../../common/styles'
+import { Input } from '../../../components/Input'
+import { TextArea } from '../../../components/TextArea'
+import { ListingType } from '../../../types/ListingType'
+import { AssetType } from '../../../types/AssetType'
 import { AssetGrid, ImageContainer, AssetDetails, Currency } from './create.styles'
-import { Button } from '../../components/Button'
+import { Button } from '../../../components/Button'
 import DatePicker from 'react-datepicker';
 import { addDays, parseISO, format } from 'date-fns';
+import { useRouter } from 'next/router'
+import { getAsset } from '../../api/asset/assets'
 
 const minPrice = 0.00005;
 
 const Create: NextPage = () => {
+  const router = useRouter();
+  const { id } = router.query;
+
+  if (id) {
+    const { asset, error } = getAsset(id as string);
+  }
+
   const [asset, setAsset] = useState<AssetType>({
     name: '',
     description: '',
@@ -31,7 +40,7 @@ const Create: NextPage = () => {
     }
     setMedia(files[0]);
     const reader = new FileReader();
-    reader.addEventListener("load", () => {
+    reader.addEventListener('load', () => {
       setMediaData(reader.result as string);
     });
     reader.readAsDataURL(files[0]);

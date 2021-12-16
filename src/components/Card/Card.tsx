@@ -24,7 +24,7 @@ export const Card: React.FC<CardProps> = (props) => {
       <Link href={`/asset/1`}>
         <Body>
           <ImageContainer>
-            <img src={token.media['original']} />
+            <img src={token.media?.['original']} />
           </ImageContainer>
           <Title>{token.name}</Title>
         </Body>

@@ -5,7 +5,7 @@ const resourceUrl = 'auth/';
 
 export type RequestParams = {
   address: string;
-  os: string;
+  os: 'web';
 }
 
 export type RequestResponse = {

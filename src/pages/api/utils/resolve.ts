@@ -1,3 +1,5 @@
+import { Toast } from "../../../components/Toast/toast";
+
 export type Response<T> = {
   data: T;
   meta: {
@@ -22,8 +24,10 @@ async function resolve<T>(promise: Promise<Response<T>>): Promise<Response<T>> {
 
   try {
     resolved = await promise;
-  } catch (e) {
+  } catch (e: any) {
+    resolved.error = e?.response?.data?.error;
     resolved.networkError = e;
+    Toast.error(resolved.error?.title);
   }
 
   return resolved;
