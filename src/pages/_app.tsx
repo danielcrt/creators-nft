@@ -12,8 +12,7 @@ import Modal from 'react-modal';
 import { DAppProvider, Mainnet } from '@usedapp/core';
 import { ETHEREUM_CHAINS } from '../common/utils';
 import { ToastContainer } from 'react-toastify';
-import { GlobalStateProvider, User } from '../hooks/AuthContext';
-import { useSelfUsers } from './api/user/users';
+import { AuthProvider } from '../hooks/AuthProvider';
 
 Modal.setAppElement("#__next");
 
@@ -25,18 +24,16 @@ const config = {
 }
 
 function MyApp({ Component, pageProps }: AppProps) {
-  const { user, error } = useSelfUsers();
-
   return <React.Fragment>
     <ThemeProvider theme={creatorsTheme}>
       <GlobalStyle />
-      <GlobalStateProvider>
-        <DAppProvider config={config}>
+      <DAppProvider config={config}>
+        <AuthProvider>
           <Header />
           <Component {...pageProps} />
           <Footer />
-        </DAppProvider>
-      </GlobalStateProvider>
+        </AuthProvider>
+      </DAppProvider>
       <ToastContainer />
     </ThemeProvider>
   </React.Fragment>

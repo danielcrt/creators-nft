@@ -1,17 +1,21 @@
 import Link from 'next/link'
 import React from 'react'
 import { HR } from '../../common/styles'
-import { Avatar, Body, Footer, Header, ImageContainer, Title, Wrapper } from './Card.styles'
+import { Body, Footer, ImageContainer, Title, Header, Wrapper } from './Card.styles'
 import Skeleton from 'react-loading-skeleton';
+import { Avatar } from '../Avatar';
 
 export const CardSkeleton: React.FC = () => {
   return (
     <Wrapper>
       <Header>
-        <Avatar>
-          <Skeleton circle={true} width={24} /> &nbsp;&nbsp;
-          <Skeleton width={100} />
-        </Avatar>
+        <Avatar
+          image={
+            <React.Fragment>
+              <Skeleton circle={true} width={24} /> &nbsp;&nbsp;
+            </React.Fragment>
+          }
+          text={<Skeleton width={100} />} />
       </Header>
       <Link href={`/asset/1`}>
         <Body>

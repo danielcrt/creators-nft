@@ -1,18 +1,22 @@
 import { NextPage } from 'next'
 import React, { ChangeEvent, useState } from 'react'
-import { Container } from '../../../common/styles'
+import { Container, Error } from '../../../common/styles'
 import { Input } from '../../../components/Input'
 import { TextArea } from '../../../components/TextArea'
 import { ListingType } from '../../../types/ListingType'
-import { AssetType } from '../../../types/AssetType'
-import { AssetGrid, ImageContainer, AssetDetails, Currency } from './create.styles'
+import { AssetGrid, ImageContainer, AssetDetails, ImageSquare } from './create.styles'
 import { Button } from '../../../components/Button'
-import DatePicker from 'react-datepicker';
-import { addDays, parseISO, format } from 'date-fns';
 import { useRouter } from 'next/router'
-import { getAsset } from '../../api/asset/assets'
+import { createAsset, CreateAssetRequest, getAsset } from '../../api/asset/assets'
+import Restricted from '../../../components/Restricted/Restricted'
+import { Toast } from '../../../components/Toast/toast'
+import { ResponseErrorMeta } from '../../../types'
 
-const minPrice = 0.00005;
+const initialFormState = {
+  name: '',
+  description: '',
+  media: undefined,
+};
 
 const Create: NextPage = () => {
   const router = useRouter();
@@ -22,42 +26,55 @@ const Create: NextPage = () => {
     const { asset, error } = getAsset(id as string);
   }
 
-  const [asset, setAsset] = useState<AssetType>({
-    name: '',
-    description: '',
-  });
-  const [media, setMedia] = useState<File>();
+  const [errors, setErrors] = useState<ResponseErrorMeta>({});
+  const [submitting, setSubmitting] = useState<boolean>(false);
+  const [form, setForm] = useState<CreateAssetRequest>(initialFormState);
+
+  const _renderSaveButton = () => {
+    if (submitting) {
+      return <p>Saving...</p>
+    }
+    return <Button
+      variant='primary'
+      onClick={_handleSave}>
+      Save
+    </Button>;
+  }
+
   const [mediaData, setMediaData] = useState<string | null>();
-  const [listing, setListing] = useState<ListingType>({
-    price: '',
-    expires_at: '',
-  });
 
   const _handleSelectedMedia = (event: ChangeEvent<HTMLInputElement>) => {
     const { files } = event.target;
     if (!files) {
       return;
     }
-    setMedia(files[0]);
+    if (errors['media']) {
+      const newErrors = { ...errors };
+      delete newErrors['media'];
+      setErrors(newErrors);
+    }
+
+    setForm({
+      ...form,
+      media: files[0]
+    });
     const reader = new FileReader();
     reader.addEventListener('load', () => {
       setMediaData(reader.result as string);
     });
     reader.readAsDataURL(files[0]);
   }
+
   const _handleChangeAsset = (event: ChangeEvent<HTMLTextAreaElement & HTMLInputElement>) => {
     const { name, value } = event.target;
+    if (errors[name]) {
+      const newErrors = { ...errors };
+      delete newErrors[name];
+      setErrors(newErrors);
+    }
 
-    setAsset({
-      ...asset,
-      [name]: value
-    });
-  }
-
-  const _handleChangeListing = (event: ChangeEvent<HTMLTextAreaElement & HTMLInputElement>) => {
-    const { name, value } = event.target;
-    setListing({
-      ...listing,
+    setForm({
+      ...form,
       [name]: value
     });
   }
@@ -77,71 +94,62 @@ const Create: NextPage = () => {
       <Button variant='secondary'>
         Browse files
       </Button>
+      <br />
+      {errors['media'] && <Error>{errors['media']}</Error>}
     </React.Fragment>;
   }
-  const _handleDateChange = (date: Date) => {
-    console.log(date);
 
-    setListing({
-      ...listing,
-      expires_at: format(date, 'yyyy-MM-dd')
+  const _handleSave = async () => {
+    setSubmitting(true);
+    const response = await createAsset({
+      ...form,
     });
-  }
-
-  const _handleSave = () => {
-    console.log(asset);
-    console.log(media);
-    console.log(listing);
+    setSubmitting(false);
+    if (!response.error && !response.networkError) {
+      Toast.success('Asset successfully created');
+      setForm(initialFormState);
+      setMediaData(null);
+    } else if (response.error) {
+      setErrors(response.error.meta);
+    }
   }
   return (
-    <React.Fragment>
+    <Restricted to='asset.create'>
       <Container>
         <AssetGrid>
-          <ImageContainer>
-            {_renderImageContent()}
-            <input
-              name='media'
-              type='file'
-              onChange={_handleSelectedMedia} />
-          </ImageContainer>
+          <ImageSquare>
+            <ImageContainer error={errors.hasOwnProperty('media')}>
+              {_renderImageContent()}
+              <input
+                name='media'
+                type='file'
+                onChange={_handleSelectedMedia} />
+            </ImageContainer>
+          </ImageSquare>
           <AssetDetails>
             <Input
               name='name'
               type='text'
               placeholder='Name'
-              value={asset.name}
+              value={form.name}
               label='Name'
-              onChange={_handleChangeAsset} />
+              onChange={_handleChangeAsset}
+              error={errors['name']}
+            />
             <TextArea
-              value={asset.description}
+              value={form.description}
               name='description'
               placeholder='Description'
               label='Description'
-              onChange={_handleChangeAsset} />
-            <Input
-              name='price'
-              type='text'
-              placeholder='Price'
-              value={listing.price}
-              label='Price'
-              onChange={_handleChangeListing}
-              prepend={<Currency>ETH</Currency>}
-              error={(listing.price && Number(listing.price) < minPrice) ? `Minimum price is ${minPrice}` : null} />
-            <DatePicker
-              minDate={addDays(new Date(), 1)}
-              customInput={<Input placeholder='Expiration date' label='Expire date' />}
-              selected={listing.expires_at ? parseISO(listing.expires_at) : null}
-              onChange={_handleDateChange} />
+              onChange={_handleChangeAsset}
+              error={errors['description']} />
             <br />
             <br />
-            <Button variant='primary'
-              onClick={_handleSave}>
-              Create
-            </Button>
+            {_renderSaveButton()}
           </AssetDetails>
         </AssetGrid>
       </Container>
-    </React.Fragment>
+    </Restricted>
   )
 }
 

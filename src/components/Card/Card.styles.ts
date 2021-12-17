@@ -20,7 +20,6 @@ export const Wrapper = styled.div`
 export const Header = styled.div`
   padding-bottom: 4px;
 `;
-
 export const ImageContainer = styled.div`
   border-radius: 20px;
   overflow: hidden;
@@ -45,26 +44,4 @@ export const Title = styled.h5`
 export const Footer = styled.div`
   display:flex;
   justify-content: space-around;
-`;
-
-export const Avatar = styled.div`
-  display:flex;
-  align-items: center;
-
-  img {
-    width: 2rem;
-    height: 2rem;
-    border-radius: 50%;
-    border: 3px solid #fff;
-    object-fit: cover;
-  }
-
-  a {
-    font-size: 16px;
-    font-weight: 700;
-    text-overflow: ellipsis;
-    overflow: hidden; 
-    width: 100%; 
-    white-space: nowrap;
-  }
 `;

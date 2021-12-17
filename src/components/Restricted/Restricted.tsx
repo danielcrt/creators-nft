@@ -1,0 +1,24 @@
+import React from 'react';
+import { Permission } from "../../types";
+import { useAuth } from '../../hooks/AuthProvider';
+
+type Props = {
+  to: Permission;
+  fallback?: JSX.Element | string;
+};
+
+// This component is meant to be used everywhere a restriction based on user permission is needed
+const Restricted: React.FunctionComponent<Props> = ({ to, fallback, children }) => {
+  const { checkIsAllowedTo } = useAuth();
+  const allowed = checkIsAllowedTo(to);
+
+  // If the user has that permission, render the children
+  if (allowed) {
+    return <>{children}</>;
+  }
+
+  // Otherwise, render the fallback
+  return <>{fallback}</>;
+};
+
+export default Restricted;

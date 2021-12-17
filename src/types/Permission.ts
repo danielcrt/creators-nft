@@ -1,0 +1,1 @@
+export type Permission = 'asset.create' | 'asset.listing.create';

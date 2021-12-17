@@ -15,7 +15,7 @@ export const Banner: React.FC = () => {
             <Title>
               Discover digital art and collect NFTs
             </Title>
-            <p>raroin is a shared liquidity NFT market smart contract which is used by multiple websites to provide the users the best possible experience.
+            <p>Creators Designs is a shared liquidity NFT market smart contract which is used by multiple websites to provide the users the best possible experience.
             </p>
             <SearchBar />
           </BannerLeft>

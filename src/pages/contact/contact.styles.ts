@@ -24,7 +24,7 @@ export const ContactBackground = styled.div`
      animation: fadein 1s;
 `;
 
-export const ContactForm = styled.div`
+export const ContactFormContainer = styled.div`
   max-width: 767px;
   padding: 20px;
   border-radius: 20px;

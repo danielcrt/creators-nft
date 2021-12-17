@@ -28,7 +28,7 @@ export const MintModal: React.FC<ReactModal.Props> = (props) => {
       {...props}
     >
       <Header>
-        <h2><b>Mint token</b></h2>
+        <h2><b>Mint asset</b></h2>
         <CloseLineIcon onClick={props.onRequestClose}/>
       </Header>
       <HR />

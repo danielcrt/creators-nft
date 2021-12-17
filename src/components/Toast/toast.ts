@@ -1,7 +1,7 @@
 import { toast, ToastOptions } from "react-toastify";
 
 const defaultOptions: ToastOptions = {
-  position: toast.POSITION.BOTTOM_LEFT
+  position: toast.POSITION.BOTTOM_RIGHT
 }
 
 const success = (message: string, options: ToastOptions = {}) => {

@@ -11,7 +11,7 @@ import { ETHEREUM_CHAINS } from '../../common/utils';
 import { useRouter } from 'next/router';
 import { Toast } from '../../components/Toast/toast';
 import { request, RequestResponse, verify } from '../api/user/auth';
-import { useGlobalState } from '../../hooks/AuthContext';
+import { useAuth } from '../../hooks/AuthProvider';
 
 type Wallet = {
   key: string;
@@ -24,7 +24,7 @@ type Wallet = {
 const ConnectWallet: NextPage = () => {
   const router = useRouter();
   const { activateBrowserWallet, activate, account, library } = useEthers();
-  const { mutateUser } = useGlobalState();
+  const { mutateUser } = useAuth();
 
   const _signNone = async (requestResponse: RequestResponse) => {
     if (!account) {
@@ -38,6 +38,7 @@ const ConnectWallet: NextPage = () => {
     });
 
     if (!response.error && !response.networkError) {
+      mutateUser();
       Toast.success('Welcome');
       router.push('/profile');
     }
@@ -52,8 +53,6 @@ const ConnectWallet: NextPage = () => {
     try {
       await activateBrowserWallet(undefined, true);
       if (account) {
-        console.log(account);
-
         const response = await request({
           address: account,
           os: 'web'

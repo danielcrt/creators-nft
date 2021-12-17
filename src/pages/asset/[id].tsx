@@ -4,25 +4,19 @@ import { useRouter } from 'next/router'
 import React, { useState } from 'react'
 import { Container, HR } from '../../common/styles'
 import { ActivityTable } from '../../components/ActivityTable'
+import { Avatar } from '../../components/Avatar'
 import { Button } from '../../components/Button'
-import { Avatar } from '../../components/Card/Card.styles'
 import { MintModal } from '../../components/MintModal'
-import { AssetType } from '../../types/AssetType'
+import Page404 from '../404'
+import { getAsset } from '../api/asset/assets'
 import { Actions, AssetDetails, AssetGrid, BlockchainContainer, Header, ImageContainer, OwnerContainer, StoreImage, StoresContainer, StoresTitle } from './asset.styles'
 
 const Asset: NextPage = () => {
   const router = useRouter();
   const { id } = router.query;
   const [isOpen, setIsOpen] = useState<boolean>(false);
-
+  const { asset, error, mutate } = getAsset(id as string);
   const isMinted = Math.random() < 0.5;
-
-  const token: AssetType = {
-    name: 'Name 1',
-    media: { original: '/assets/images/sample.jpeg' },
-    owner: '0x123123',
-    description: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.`
-  };
 
   const _renderPrice = () => {
     return <h2>On sale for: 0.05 ETH</h2>
@@ -60,6 +54,7 @@ const Asset: NextPage = () => {
     setIsOpen(false);
   }
 
+  if (!id || !asset) return <Page404 />;
   return (
     <React.Fragment>
       <Container>
@@ -69,7 +64,7 @@ const Asset: NextPage = () => {
           </ImageContainer>
           <AssetDetails>
             <Header>
-              <h1>{token.name}</h1>
+              <h1>{asset.name}</h1>
               <Actions>
                 <Link href={`/asset/${id}/edit`}>
                   <a><Button variant='primary'>
@@ -81,21 +76,20 @@ const Asset: NextPage = () => {
             </Header>
             <OwnerContainer>
               <b>owned by:</b>
-              <Avatar>
-                <img src='/assets/images/logo.png' />
-                <a>@creators.designs</a>
-              </Avatar>
+              <Avatar
+                image='/assets/images/logo.png'
+                text={<a>@creators.designs</a>}
+              />
             </OwnerContainer>
             <HR />
             <BlockchainContainer>
               <h3><b>Blockchain:</b></h3>
-              <Avatar>
-                <img src='/assets/images/ethereum-icon.png' />
-                <p><b>Ethereum</b></p>
-              </Avatar>
+              <Avatar
+                image='/assets/images/ethereum-icon.png'
+                text={<p><b>Ethereum</b></p>} />
             </BlockchainContainer>
             <h3><b>Description</b></h3>
-            <p>{token.description}</p>
+            <p>{asset.description}</p>
             <HR />
             {_renderBuyOptions()}
           </AssetDetails>

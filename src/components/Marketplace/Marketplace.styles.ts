@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Button } from "../Button";
 
 export const Wrapper = styled.div`
   background: #f8f8f8;
@@ -14,4 +15,8 @@ export const CardsGrid = styled.h2`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: 1.5rem;
+`;
+
+export const LoadMoreButton = styled(Button)`
+  margin: 0 auto;
 `;

@@ -1,14 +1,19 @@
 import useSWR from 'swr';
+import { User } from '../../../types';
 import { fetcher } from '../utils/fetcher';
 
 const resourceUrl = 'users/';
 
 export const useSelfUsers = () => {
-  const { data: user, error, mutate: mutateUser } = useSWR(
+  const { data, error, mutate: mutateUser } = useSWR(
     `${resourceUrl}self`,
     fetcher,
-    { shouldRetryOnError: false }
+    {
+      shouldRetryOnError: false,
+      revalidateOnFocus: false,
+    }
   )
 
+  const user: User = data?.data;
   return { user, error, mutateUser }
 }

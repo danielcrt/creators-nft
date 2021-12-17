@@ -16,7 +16,7 @@ textarea, input, button {
 }
 
 a {
-  color: inherit;
+  color: ${props => props.theme.colors.primaryAccent};
   text-decoration: none;
   cursor: pointer;
   transition: .25s cubic-bezier(.4,0,.2,1);

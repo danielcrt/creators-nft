@@ -36,6 +36,7 @@ export const MenuListItem = styled.li`
   margin-right: 0;
   margin-left: 20px;
   a {
+    color: inherit;
     white-space: nowrap;
     &:hover {
       color: ${props => props.theme.colors.primary};
