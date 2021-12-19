@@ -1,1 +1,1 @@
-export type Permission = 'asset.create' | 'asset.listing.create';
+export type Permission = 'asset.create' | 'asset.edit.own' | 'asset.listing.create';

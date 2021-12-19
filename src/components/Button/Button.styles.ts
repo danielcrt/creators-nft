@@ -1,4 +1,4 @@
-import styled, { css, DefaultTheme } from 'styled-components';
+import styled, { DefaultTheme } from 'styled-components';
 import { ButtonProps } from './Button';
 
 interface StyledButtonType extends ButtonProps {
@@ -12,7 +12,7 @@ export const StyledButton = styled.button<StyledButtonType>`
     align-items: center;
     gap: 8px;
     cursor: pointer;
-    color: ${props => props.variant === 'primary' ? '#fff' : props.theme.colors.primary};
+    color: ${props => ['primary', 'danger'].includes(props.variant || '') ? '#fff' : props.theme.colors.primary};
     padding: 11px 23px;
     min-height: 20px;
     line-height: 20px;

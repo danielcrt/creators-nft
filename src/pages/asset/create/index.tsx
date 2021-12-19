@@ -29,6 +29,7 @@ const Create: NextPage = () => {
   const [errors, setErrors] = useState<ResponseErrorMeta>({});
   const [submitting, setSubmitting] = useState<boolean>(false);
   const [form, setForm] = useState<CreateAssetRequest>(initialFormState);
+  const [mediaData, setMediaData] = useState<string | null>();
 
   const _renderSaveButton = () => {
     if (submitting) {
@@ -40,8 +41,6 @@ const Create: NextPage = () => {
       Save
     </Button>;
   }
-
-  const [mediaData, setMediaData] = useState<string | null>();
 
   const _handleSelectedMedia = (event: ChangeEvent<HTMLInputElement>) => {
     const { files } = event.target;
@@ -109,6 +108,7 @@ const Create: NextPage = () => {
       Toast.success('Asset successfully created');
       setForm(initialFormState);
       setMediaData(null);
+      router.push(`/asset/${response.data.id}`)
     } else if (response.error) {
       setErrors(response.error.meta);
     }
@@ -144,7 +144,7 @@ const Create: NextPage = () => {
               onChange={_handleChangeAsset}
               error={errors['description']} />
             <br />
-            <br />
+            {errors['media'] && <Error>{errors['media']}</Error>}
             {_renderSaveButton()}
           </AssetDetails>
         </AssetGrid>

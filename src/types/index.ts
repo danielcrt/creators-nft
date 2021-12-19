@@ -6,3 +6,4 @@ export * from './Permission';
 export * from './AuthState';
 export * from './User';
 export * from './ResponseError';
+export * from './Collection';

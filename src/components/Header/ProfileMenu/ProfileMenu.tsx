@@ -49,7 +49,6 @@ export const ProfileMenu: React.FC = () => {
     </Link>;
   }
   return <Popup
-    open={true}
     trigger={_renderPopupTrigger()}
     position='bottom right'
     on='hover'

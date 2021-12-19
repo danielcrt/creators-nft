@@ -85,7 +85,12 @@ const Contact: NextPage = () => {
       <Input name='email' label="Email" type="email" placeholder="Your email" onChange={handleChange}
         value={form.email}
         error={errors['email']} />
-      <TextArea name='message' label="Message" placeholder="Your message" rows={4} cols={50} onChange={handleChange}
+      <TextArea value={form.message}
+        name='message'
+        label="Message"
+        placeholder="Your message"
+        rows={4} cols={50}
+        onChange={handleChange}
         error={errors['message']} >
         {form.message}
       </TextArea>

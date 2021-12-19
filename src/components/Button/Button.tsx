@@ -1,7 +1,7 @@
 import React, { ButtonHTMLAttributes } from 'react'
 import { StyledButton } from './Button.styles';
 
-export type ButtonVariants = 'primary' | 'secondary';
+export type ButtonVariants = 'primary' | 'secondary' | 'danger';
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: ButtonVariants

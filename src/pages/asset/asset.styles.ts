@@ -30,7 +30,8 @@ export const Header = styled.div`
 `;
 
 export const Actions = styled.div`
-  
+  display: flex;
+  gap: 8px;
 `;
 
 export const StoresContainer = styled.div`

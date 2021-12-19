@@ -11,6 +11,8 @@ declare module 'styled-components' {
       secondaryAccent: string;
       text: string;
       success: string;
+      danger: string;
+      dangerAccent: string;
     };
   }
 }

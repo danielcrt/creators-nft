@@ -16,6 +16,7 @@ textarea, input, button {
 }
 
 a {
+  outline: none;
   color: ${props => props.theme.colors.primaryAccent};
   text-decoration: none;
   cursor: pointer;

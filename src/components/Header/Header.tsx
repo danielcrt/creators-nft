@@ -3,6 +3,7 @@ import { Container } from '../../common/styles';
 import { ButtonsContainer, Logo, Menu, MenuList, MenuListItem, StyledHeader, Wrapper } from './Header.styles';
 import Link from 'next/link'
 import { ProfileMenu } from './ProfileMenu';
+import Restricted from '../Restricted/Restricted';
 
 export const Header: React.FC = () => {
 
@@ -20,6 +21,13 @@ export const Header: React.FC = () => {
                   <a>Explore</a>
                 </MenuListItem>
               </Link>
+              <Restricted to='asset.create'>
+                <Link href='/asset/create'>
+                  <MenuListItem>
+                    <a>Create</a>
+                  </MenuListItem>
+                </Link>
+              </Restricted>
               <Link href='/contact'>
                 <MenuListItem>
                   <a>Contact</a>

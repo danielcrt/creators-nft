@@ -13,7 +13,9 @@ import { useAuth } from '../../hooks/AuthProvider';
 
 const Profile: NextPage = () => {
   const { user } = useAuth();
-  const { assets, error, isLoadingMore, size, setSize, isReachingEnd } = usePaginateAssets();
+  const { assets, error, isLoadingMore, size, setSize, isReachingEnd } = usePaginateAssets({
+    owner: user?.address
+  });
 
   const _renderCards = () => {
     if (assets.length === 0) {

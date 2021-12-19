@@ -10,6 +10,8 @@ const creatorsTheme: DefaultTheme = {
     secondaryAccent: '#f4eedd',
     text: '#183b56',
     success: '#18b14b',
+    danger: '#f36c6c',
+    dangerAccent: '#c75757',
   },
 };
 

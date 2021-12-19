@@ -21,7 +21,7 @@ export const Card: React.FC<CardProps> = (props) => {
             <a>@creatorsdesigns</a>
           </Link>} />
       </Header>
-      <Link href={`/asset/1`}>
+      <Link href={`/asset/${asset.id}`}>
         <Body>
           <ImageContainer>
             <img src={asset.media?.[0].media['500']} />
