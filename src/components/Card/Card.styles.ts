@@ -20,14 +20,15 @@ export const Wrapper = styled.div`
 export const Header = styled.div`
   padding-bottom: 4px;
 `;
+
 export const ImageContainer = styled.div`
   border-radius: 20px;
   overflow: hidden;
   img {
     cursor: pointer;
     object-fit: cover; 
-    max-height: 100%;
-    max-width: 100%;
+    height: 100%;
+    width: 100%;
     transition: all .6s cubic-bezier(.4,0,.2,1);
   }
 `;

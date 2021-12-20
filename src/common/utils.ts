@@ -1,6 +1,7 @@
 import { ChainId } from "@usedapp/core";
 import { JsonRpcSigner } from '@ethersproject/providers';
 import { CreatorsMetadata } from "../types/CreatorsMetadata";
+import { Color } from "../types";
 
 type ChainList = {
   [key: number]: string;
@@ -29,8 +30,17 @@ export const signAsset = async (chainId: ChainId, asset: CreatorsMetadata, accou
   return (await account._signTypedData(
     {
       name: eip712Name,
-      version: "1",
+      version: '1',
       chainId,
       verifyingContract
     }, Types, asset));
+}
+
+export const hexToRgb = (hex: string): Color | null => {
+  var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+  return result ? {
+      r: parseInt(result[1], 16),
+      g: parseInt(result[2], 16),
+      b: parseInt(result[3], 16)
+  } : null;
 }

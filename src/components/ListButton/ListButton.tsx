@@ -16,7 +16,7 @@ import { Input } from '../Input';
 import Restricted from '../Restricted/Restricted';
 import { Toast } from '../Toast/toast';
 import { Currency, Header } from './ListButton.styles';
-import { parseEther } from '@ethersproject/units';
+import { utils } from 'ethers';
 
 const customStyles: ReactModal.Styles = {
   content: {
@@ -82,7 +82,7 @@ export const ListButton: React.FC<ListButtonProps> = (props) => {
       tokenId: asset.id,
       tokenURI: tokenURI,
       creator: account!,
-      price: parseEther(String(listing.price)),
+      price: utils.parseEther(String(listing.price)),
       expiresAt: getTime(parse(listing.expires_at, DEFAULT_BACKEND_DATE_TIME_FORMAT, new Date())),
       signature: []
     };
@@ -170,7 +170,7 @@ export const ListButton: React.FC<ListButtonProps> = (props) => {
           onChange={_handleDateChange} />
         <HR />
         {submitting ?
-          <p>Listing...</p>
+          <p>Waiting your signature...</p>
           :
           <Button
             variant='primary'

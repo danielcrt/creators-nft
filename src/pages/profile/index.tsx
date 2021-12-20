@@ -1,4 +1,4 @@
-import { shortenAddress } from '@usedapp/core';
+import { shortenAddress, useEthers } from '@usedapp/core';
 import { NextPage } from 'next';
 import Link from 'next/link';
 import React from 'react'
@@ -12,9 +12,10 @@ import { Content, Header, LoadMoreButton, StyledAvatar, Wrapper } from './profil
 import { useAuth } from '../../hooks/AuthProvider';
 
 const Profile: NextPage = () => {
+  const { account } = useEthers();
   const { user } = useAuth();
   const { assets, error, isLoadingMore, size, setSize, isReachingEnd } = usePaginateAssets({
-    owner: user?.address
+    owner: account
   });
 
   const _renderCards = () => {

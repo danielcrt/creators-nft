@@ -5,21 +5,23 @@ import { Asset } from '../../types/Asset'
 import { Button } from '../Button'
 import { Body, Footer, ImageContainer, Title, Wrapper, Header } from './Card.styles'
 import { Avatar } from '../Avatar'
+import { shortenAddress, useEthers } from '@usedapp/core'
 
 export type CardProps = {
   asset: Asset
 }
 
 export const Card: React.FC<CardProps> = (props) => {
+  const { account } = useEthers();
   const { asset } = props;
   return (
     <Wrapper>
       <Header>
         <Avatar
           image={'/assets/images/logo.png'}
-          text={<Link href={`/users/${asset.owner}`}>
-            <a>@creatorsdesigns</a>
-          </Link>} />
+          text={
+            <a>{asset.owner ? shortenAddress(asset.owner) : '@creatorsdesigns'}</a>
+          } />
       </Header>
       <Link href={`/asset/${asset.id}`}>
         <Body>
@@ -31,13 +33,15 @@ export const Card: React.FC<CardProps> = (props) => {
       </Link>
       <HR />
       <Footer>
-        <Link href={`/contact?assetId=${asset.id}&assetName=${asset.name}`}>
-          <a>
-            <Button variant='secondary'>
-              Make offer
-            </Button>
-          </a>
-        </Link>
+        {!asset.token_id &&
+          <Link href={`/contact?assetId=${asset.id}&assetName=${asset.name}`}>
+            <a>
+              <Button variant='secondary'>
+                Make offer
+              </Button>
+            </a>
+          </Link>
+        }
         <Link href={`/asset/${asset.id}`}>
           <a>
             <Button variant='primary'>

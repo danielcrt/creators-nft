@@ -1,5 +1,6 @@
 import { InputHTMLAttributes } from 'react';
-import styled from 'styled-components';
+import styled, { DefaultTheme } from 'styled-components';
+import { hexToRgb } from './utils';
 
 export const Container = styled.div`
     width: 100%;
@@ -57,4 +58,27 @@ export const HR = styled.div`
 
 export const Error = styled.span`
   color: red;
-`; 
+`;
+
+type TagProps = {
+    color: string;
+    theme: DefaultTheme;
+}
+
+export const Tag = styled.span<TagProps>`
+    background: ${props => props.color ? props.color : props.theme.colors.primary};
+    color: ${props => {
+        const rgb = hexToRgb(props.color);
+        if (!rgb) return '#fff';
+        return ((rgb.r * 0.299 + rgb.g * 0.587 + rgb.b * 0.114) > 186) ? '#000000' : '#ffffff';
+    }};
+    transition: 0.4s;
+    padding: 6px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: default;
+
+    &:hover {
+        opacity: 0.8;
+    }
+`;

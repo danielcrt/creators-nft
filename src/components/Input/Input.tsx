@@ -1,4 +1,4 @@
-import React, { InputHTMLAttributes, RefAttributes } from 'react'
+import React, { InputHTMLAttributes } from 'react'
 import { Wrapper, StyledInput, Label, Container, Error } from './Input.styles';
 
 export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {

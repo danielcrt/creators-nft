@@ -9,6 +9,7 @@ export const Container = styled.div<AvatarContainerProps>`
   display: ${props => props.textPosition === 'bottom' ? 'block' : 'flex'};
   align-items: center;
   ${props => props.textPosition === 'bottom' ? 'text-align: center;' : ''};
+  gap: 4px;
 
   img {
     width: ${props => props.size ? `${props.size}px` : '2rem'};

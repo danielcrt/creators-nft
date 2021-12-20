@@ -1,21 +1,17 @@
-import { useContractFunction, useEthers } from '@usedapp/core';
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import ReactModal from 'react-modal';
 import Modal from 'react-modal';
 import CloseLineIcon from 'remixicon-react/CloseLineIcon';
 import { HR } from '../../common/styles';
 import { Asset } from '../../types';
-import { Button } from '../Button';
 import { Header } from './MintModal.styles';
+import { Step1 } from './Step1';
+import { Step2 } from './Step2';
+import { utils } from 'ethers';
 import CreatePatterns from '../../contracts/CreatePatterns.json';
 import { Contract } from '@ethersproject/contracts';
-import { utils } from 'ethers';
-import { DEFAULT_BACKEND_DATE_TIME_FORMAT } from '../../common/utils';
-import { getTime, parse } from 'date-fns';
-import { CreatorsMetadata } from '../../types/CreatorsMetadata';
-import Loader from 'react-loader-spinner';
+import { useContractFunction } from '@usedapp/core';
 import { Toast } from '../Toast/toast';
-import { DefaultTheme, useTheme } from 'styled-components';
 
 const customStyles: ReactModal.Styles = {
   content: {
@@ -30,7 +26,6 @@ const customStyles: ReactModal.Styles = {
     alignItems: 'center',
     display: 'flex',
     flexDirection: 'column',
-    borderRadius: 50
   },
 };
 
@@ -42,51 +37,12 @@ export const MintModal: React.FC<ReactModal.Props & MintModalProps> = (props) =>
   const {
     asset
   } = props;
-  const theme = useTheme();
-  const { account } = useEthers();
+
+  const [currentStep, setCurrentStep] = useState<number>(1);
 
   const contractInterface = new utils.Interface(CreatePatterns.abi);
   const contract = new Contract(asset.collection?.address!, contractInterface);
   const { send, state } = useContractFunction(contract, 'mint');
-
-  const _handleMint = async (): Promise<void> => {
-    const assetMetadata: CreatorsMetadata = {
-      tokenId: asset.id,
-      tokenURI: asset.id,
-      price: utils.parseEther(String(asset.listing?.price)),
-      creator: asset.owner!,
-      expiresAt: getTime(parse(asset.listing?.expires_at!, DEFAULT_BACKEND_DATE_TIME_FORMAT, new Date())),
-      signature: utils.arrayify(asset.listing?.signature!)!
-    };
-
-    await send(account, assetMetadata, {
-      from: account,
-      value: utils.parseEther(String(asset.listing?.price))
-    });
-  }
-
-  const _renderStatus = (): JSX.Element | null => {
-    if (state.status === 'Mining') {
-      return <React.Fragment>
-        <p>Transaction in progress...</p>
-        <Loader
-          type='Hearts'
-          color={theme.colors.secondary}
-          height={100}
-          width={100}
-        />
-      </React.Fragment>
-    } else if (state.status === 'Fail' || state.status === 'Exception') {
-      <React.Fragment>
-        <p>{state.errorMessage || 'There was an error'}</p>
-      </React.Fragment>
-    } else if (state.status === 'Success') {
-      return <React.Fragment>
-        <p>You have successfully minted this token.</p>
-      </React.Fragment>
-    }
-    return null;
-  }
 
   useEffect(() => {
     if (state.status === 'Fail' || state.status === 'Exception') {
@@ -96,25 +52,30 @@ export const MintModal: React.FC<ReactModal.Props & MintModalProps> = (props) =>
     }
   }, [state.status]);
 
+  const _handleNextStep = () => {
+    setCurrentStep(currentStep + 1);
+  }
+
+  const _handlePreviousStep = () => {
+    setCurrentStep(currentStep - 1);
+  }
+
+  const steps = [
+    <Step1 asset={asset} mint={send} handleNextStep={_handleNextStep} />,
+    <Step2 state={state} handlePreviousStep={_handlePreviousStep} handleClose={props.onRequestClose} />
+  ];
+
   return (
     <Modal
       style={customStyles}
       {...props}
     >
       <Header>
-        <h2>Mint <b>"{asset.name}"</b></h2>
+        <h2>Minting <b>"{asset.name}"</b></h2>
         <CloseLineIcon onClick={props.onRequestClose} />
       </Header>
       <HR />
-      {_renderStatus()}
-      <br />
-      {state.status === 'None' &&
-        <Button
-          variant='primary'
-          onClick={_handleMint}>
-          Mint
-        </Button>
-      }
+      {steps[currentStep - 1]}
     </Modal>
   )
 }

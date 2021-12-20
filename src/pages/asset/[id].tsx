@@ -1,4 +1,4 @@
-import { Mainnet, useEthers } from '@usedapp/core'
+import { Mainnet, shortenAddress, useEthers } from '@usedapp/core'
 import { format, parse } from 'date-fns'
 import { NextPage } from 'next'
 import Link from 'next/link'
@@ -12,6 +12,7 @@ import { Button } from '../../components/Button'
 import { ListButton } from '../../components/ListButton'
 import { MintModal } from '../../components/MintModal'
 import Restricted from '../../components/Restricted/Restricted'
+import { Toast } from '../../components/Toast/toast'
 import Page404 from '../404'
 import { getAsset } from '../api/asset/assets'
 import { AssetSkeleton } from './asset.skeleton'
@@ -19,12 +20,11 @@ import { Actions, AssetDetails, AssetGrid, BlockchainContainer, Header, ImageCon
 
 const Asset: NextPage = () => {
   const router = useRouter();
-  const { chainId } = useEthers();
+  const { account, chainId } = useEthers();
 
   const { id } = router.query;
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const { asset, error, mutate } = getAsset(id as string);
-  console.log(asset);
 
   const _renderPrice = (): JSX.Element | null => {
     if (!asset?.listing?.expires_at || !asset?.listing?.price) {
@@ -72,12 +72,22 @@ const Asset: NextPage = () => {
     </React.Fragment>
   }
 
-  const _handleMint = () => {
+  const _handleMint = (): void => {
+    if (!account) {
+      Toast.info('You have to connect your wallet first');
+      return;
+    }
     setIsOpen(true);
   }
 
-  const _closeModal = () => {
+  const _closeModal = (): void => {
     setIsOpen(false);
+  }
+
+  const _renderOwner = (): string => {
+    if (!asset?.owner) return '@creatorsdesigns';
+    if (asset.owner.toLowerCase() === account?.toLowerCase()) return 'you';
+    return shortenAddress(asset.owner);
   }
 
   if (!asset && !error) {
@@ -115,7 +125,7 @@ const Asset: NextPage = () => {
               <b>owned by:</b>
               <Avatar
                 image='/assets/images/logo.png'
-                text={<a>@creators.designs</a>}
+                text={<a>{_renderOwner()}</a>}
               />
             </OwnerContainer>
             <HR />
@@ -139,6 +149,8 @@ const Asset: NextPage = () => {
       <MintModal
         asset={asset}
         isOpen={isOpen}
+        shouldCloseOnEsc={true}
+        shouldCloseOnOverlayClick={true}
         onRequestClose={_closeModal}
       />
     </React.Fragment>
