@@ -30,7 +30,7 @@ export function AuthProvider(props: any) {
       }
       const isAllowed = user?.permissions.includes(permission) &&
         "owner" in resource &&
-        resource.owner === user.id;
+        resource.owner === user.address;
 
       resourceCache[permission][resource.id] = isAllowed;
       return isAllowed;

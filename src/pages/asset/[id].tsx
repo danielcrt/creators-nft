@@ -4,7 +4,8 @@ import { NextPage } from 'next'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React, { useState } from 'react'
-import { Container, HR } from '../../common/styles'
+import { useTheme } from 'styled-components'
+import { Container, HR, Tag } from '../../common/styles'
 import { DEFAULT_BACKEND_DATE_TIME_FORMAT } from '../../common/utils'
 import { ActivityTable } from '../../components/ActivityTable'
 import { Avatar } from '../../components/Avatar'
@@ -16,12 +17,12 @@ import { Toast } from '../../components/Toast/toast'
 import Page404 from '../404'
 import { getAsset } from '../api/asset/assets'
 import { AssetSkeleton } from './asset.skeleton'
-import { Actions, AssetDetails, AssetGrid, BlockchainContainer, Header, ImageContainer, OwnerContainer, StoreImage, StoresContainer, StoresTitle } from './asset.styles'
+import { Actions, AgreementLink, AssetDetails, AssetGrid, BlockchainContainer, Header, ImageContainer, OwnerContainer, StoreImage, StoresContainer, StoresTitle } from './asset.styles'
 
 const Asset: NextPage = () => {
   const router = useRouter();
   const { account, chainId } = useEthers();
-
+  const theme = useTheme();
   const { id } = router.query;
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const { asset, error, mutate } = getAsset(id as string);
@@ -53,7 +54,9 @@ const Asset: NextPage = () => {
     if (chainId !== Mainnet.chainId) {
       etherscanBaseUrl = 'goerli.' + etherscanBaseUrl;
     }
-
+    if (!asset.token_id) {
+      return null;
+    }
     return <React.Fragment>
       <StoresTitle>View on:</StoresTitle>
       <StoresContainer>
@@ -121,6 +124,11 @@ const Asset: NextPage = () => {
                 />
               </Actions>
             </Header>
+            {asset.agreement &&
+              <AgreementLink target={'_blank'} href={`https://ipfs.io/ipfs/${asset.agreement.ipfs}`}>
+                <Tag color={theme.colors.secondary}>{asset.agreement.name}</Tag>
+              </AgreementLink>
+            }
             <OwnerContainer>
               <b>owned by:</b>
               <Avatar
@@ -128,6 +136,7 @@ const Asset: NextPage = () => {
                 text={<a>{_renderOwner()}</a>}
               />
             </OwnerContainer>
+
             <HR />
             <BlockchainContainer>
               <h3><b>Blockchain:</b></h3>

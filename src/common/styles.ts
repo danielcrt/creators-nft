@@ -76,7 +76,6 @@ export const Tag = styled.span<TagProps>`
     padding: 6px;
     border-radius: 5px;
     font-size: 16px;
-    cursor: default;
 
     &:hover {
         opacity: 0.8;

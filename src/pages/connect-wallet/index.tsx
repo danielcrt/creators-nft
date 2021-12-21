@@ -45,7 +45,15 @@ const ConnectWallet: NextPage = () => {
   }
 
   const _handleSignMessage = async (nonce: string): Promise<string> => {
-    const signature = await library!.getSigner().signMessage(`I am signing my one-time nonce: ${nonce}`);
+    const signature = await library!.getSigner().signMessage(`https://nft.thecreatorsdesigns.com/
+    
+    Welcome,
+    
+    This is a verification procedure. To continue please 'sign' this signature request for account ownership verification.
+    
+    
+    Nonce:
+    ${nonce}`);
     return signature;
   };
 

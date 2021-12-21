@@ -1,10 +1,10 @@
-import { InputHTMLAttributes } from "react";
 import styled from "styled-components";
 import { TextInput } from "../../common/styles";
 
 export const Wrapper = styled.div`
   background: #e2eef1;
   height: 3rem;
+  max-width: 100%;
   width: 20rem;
   border-radius: 100px;
   position: relative;

@@ -69,3 +69,8 @@ export const OwnerContainer = styled.div`
   display:flex;
   align-items: center;
 `;
+
+export const AgreementLink = styled.a`
+  display: inline-flex;
+  cursor:pointer;
+`;

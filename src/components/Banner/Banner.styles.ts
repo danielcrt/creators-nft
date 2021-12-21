@@ -24,7 +24,7 @@ export const Wrapper = styled.div`
 
 export const Grid = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 1.5rem;
 `;
 
@@ -41,7 +41,11 @@ export const BannerRight = styled.div`
   display: grid;
   align-items: center;
   justify-content: flex-end;
+  
   img {
+    @media (max-width: 767px) {
+      display: none;
+    }
     max-height: 500px;
     object-fit: contain;
 

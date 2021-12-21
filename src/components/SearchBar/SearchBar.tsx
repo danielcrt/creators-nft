@@ -7,6 +7,14 @@ export const SearchBar: React.FC = () => {
   const { setSearchValue } = useContext<IHomeContext>(HomeContext);
   const [value, setValue] = useState<string>('');
 
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>): void => {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      event.stopPropagation();
+      handleSearch();
+    }
+  }
+
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value);
   }
@@ -17,7 +25,7 @@ export const SearchBar: React.FC = () => {
 
   return (
     <Wrapper>
-      <Input type='text' placeholder='Search' onChange={handleChange} />
+      <Input type='text' placeholder='Search' onChange={handleChange} onKeyDown={handleKeyDown} />
       <Icon onClick={handleSearch}>
         <SearchLineIcon size={20} />
       </Icon>

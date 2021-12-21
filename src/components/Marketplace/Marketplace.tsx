@@ -10,7 +10,11 @@ import { UnexpectedError } from '../UnexpectedError'
 export const Marketplace: React.FC = () => {
   const { searchValue } = useContext(HomeContext);
   const exploreRef = useRef<HTMLDivElement>(null);
-  const { assets, error, isLoadingMore, size, setSize, isReachingEnd } = usePaginateAssets();
+  const { assets, error, isLoadingMore, size, setSize, isReachingEnd } = usePaginateAssets(searchValue ? {
+    name: {
+      '$like': searchValue
+    }
+  } : {});
 
   useEffect(() => {
     exploreRef.current?.scrollIntoView();

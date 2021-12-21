@@ -9,3 +9,8 @@ export * from './ResponseError';
 export * from './Collection';
 export * from './Transfer';
 export * from './Color';
+export * from './Log';
+export * from './Agreement';
+export * from './Transfer';
+export * from './TokenPurchase';
+export * from './Topic';

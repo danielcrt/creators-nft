@@ -14,7 +14,9 @@ async function resolve<T>(promise: Promise<ApiResponse<T>>): Promise<ApiResponse
   } catch (e: any) {
     resolved.error = e?.response?.data?.error;
     resolved.networkError = e;
-    Toast.error(resolved.error?.title || '');
+    if (resolved.error?.status !== 403) {
+      Toast.error(resolved.error?.title || '');
+    }
   }
 
   return resolved;

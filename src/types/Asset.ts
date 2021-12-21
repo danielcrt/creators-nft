@@ -1,4 +1,4 @@
-import { Collection } from "."
+import { Agreement, Collection } from "."
 import { Listing } from "./Listing"
 
 export type Asset = {
@@ -8,6 +8,7 @@ export type Asset = {
   description?: string;
   media?: AssetMedia[];
   owner?: string;
+  agreement?: Agreement;
   collection?: Collection;
   listing?: Listing | null;
 }

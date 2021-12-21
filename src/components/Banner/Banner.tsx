@@ -4,7 +4,7 @@ import { SearchBar } from "../SearchBar";
 import { BannerLeft, BannerRight, Wrapper, Title, Grid } from "./Banner.styles";
 
 export type BannerProps = {
-} 
+}
 
 export const Banner: React.FC = () => {
   return (
@@ -17,6 +17,7 @@ export const Banner: React.FC = () => {
             </Title>
             <p>Creators Designs is a shared liquidity NFT market smart contract which is used by multiple websites to provide the users the best possible experience.
             </p>
+            <br />
             <SearchBar />
           </BannerLeft>
           <BannerRight>
