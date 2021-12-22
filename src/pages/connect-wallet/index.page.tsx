@@ -128,7 +128,7 @@ const ConnectWallet: NextPage = () => {
             {wallets.map(wallet =>
               <WalletCard key={wallet.key} onClick={wallet.handleConnection}>
                 <WalletImage>
-                  <img src={wallet.image} alt={wallet.name} width={120} height={120} />
+                  <img src={wallet.image} alt={wallet.name} width={100} height={100} />
                 </WalletImage>
                 <WalletTitle>{wallet.name}</WalletTitle>
                 <WalletDescription>{wallet.description}</WalletDescription>
