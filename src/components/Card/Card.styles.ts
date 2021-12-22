@@ -12,7 +12,7 @@ export const Wrapper = styled.div`
   overflow: hidden;
   transition: all .4s cubic-bezier(.4,0,.2,1);
 
-  &:hover img {
+  &:hover span img {
     transform: scale(1.1);
   }
 `;
@@ -24,14 +24,18 @@ export const Header = styled.div`
 export const ImageContainer = styled.div`
   border-radius: 20px;
   overflow: hidden;
-  img {
-    cursor: pointer;
-    object-fit: cover; 
-    height: 100%;
-    width: 100%;
-    transition: all .6s cubic-bezier(.4,0,.2,1);
-  }
+  position: relative;
+  padding-bottom: 100%;
 `;
+
+export const StyledImage = styled.img`
+  cursor: pointer;
+  object-fit: cover; 
+  height: 100%;
+  width: 100%;
+  transition: all .6s cubic-bezier(.4,0,.2,1);
+`;
+
 export const Body = styled.div`
   
 `;

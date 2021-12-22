@@ -1,3 +1,4 @@
+import Image from "next/image";
 import styled, { DefaultTheme } from "styled-components";
 import { AvatarProps } from ".";
 
@@ -11,14 +12,6 @@ export const Container = styled.div<AvatarContainerProps>`
   ${props => props.textPosition === 'bottom' ? 'text-align: center;' : ''};
   gap: 4px;
 
-  img {
-    width: ${props => props.size ? `${props.size}px` : '2rem'};
-    height: ${props => props.size ? `${props.size}px` : '2rem'};
-    border-radius: 50%;
-    border: 3px solid #fff;
-    object-fit: cover;
-  }
-
   a {
     font-size: 16px;
     font-weight: 700;
@@ -27,4 +20,10 @@ export const Container = styled.div<AvatarContainerProps>`
     width: 100%; 
     white-space: nowrap;
   }
+`;
+
+export const StyledImage = styled.img`
+  border-radius: 50%;
+  border: 3px solid #fff;
+  object-fit: cover;
 `;

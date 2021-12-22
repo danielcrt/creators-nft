@@ -33,7 +33,7 @@ export type UpdateAssetRequest = {
   media: File | undefined;
 };
 
-export const getAsset = (id?: string, parameters: Dictionary<any> = {}) => {
+export const useAsset = (id?: string, parameters: Dictionary<any> = {}) => {
   const { data, error, mutate } = useSWR<ApiResponse<Asset>>(
     id !== undefined ? `${resourceUrl}/${id}` : null,
     fetcher, {

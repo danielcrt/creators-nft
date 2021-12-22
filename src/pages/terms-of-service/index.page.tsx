@@ -10,12 +10,12 @@ const TermsOfService: NextPage = () => {
       <br />
       <h1>1. Definitions.</h1>
       <br />
-      <p>“Art” means any art, design, and drawings that may be associated with an NFT that you Own.</p>
-      <p>"NFT" means any blockchain-tracked, non-fungible token, such as those conforming to the ERC-721 standard.</p>
-      <p>“Own” means, with respect to an NFT, an NFT that you have purchased or otherwise rightfully acquired from a legitimate source, where proof of such purchase is recorded on the relevant blockchain.</p>
-      <p>“Extensions” means third party designs that: (i) are intended for use as extensions or overlays to the Art, (ii) do not modify the underlying Art, and (iii) can be removed at any time without affecting the underlying Art.</p>
-      <p>“Purchased NFT” means an NFT that you Own.</p>
-      <p>“Third Party IP” means any third party patent rights (including, without limitation, patent applications and disclosures), copyrights, trade secrets, trademarks, know-how or any other intellectual property rights recognized in any country or jurisdiction in the world.</p>
+      <p>&quot;Art&quot; means any art, design, and drawings that may be associated with an NFT that you Own.</p>
+      <p>&quot;NFT&quot; means any blockchain-tracked, non-fungible token, such as those conforming to the ERC-721 standard.</p>
+      <p>&quot;Own&quot; means, with respect to an NFT, an NFT that you have purchased or otherwise rightfully acquired from a legitimate source, where proof of such purchase is recorded on the relevant blockchain.</p>
+      <p>&quot;Extensions&quot; means third party designs that: (i) are intended for use as extensions or overlays to the Art, (ii) do not modify the underlying Art, and (iii) can be removed at any time without affecting the underlying Art.</p>
+      <p>&quot;Purchased NFT&quot; means an NFT that you Own.</p>
+      <p>&quot;Third Party IP&quot; means any third party patent rights (including, without limitation, patent applications and disclosures), copyrights, trade secrets, trademarks, know-how or any other intellectual property rights recognized in any country or jurisdiction in the world.</p>
       <br />
       <h1>2. Ownership.</h1>
       <br />

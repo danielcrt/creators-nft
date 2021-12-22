@@ -1,7 +1,8 @@
+import Image from "next/image";
 import React from "react";
 import { Container } from "../../common/styles";
 import { SearchBar } from "../SearchBar";
-import { BannerLeft, BannerRight, Wrapper, Title, Grid } from "./Banner.styles";
+import { BannerLeft, BannerRight, Wrapper, Title, Grid, StyledImage } from "./Banner.styles";
 
 export type BannerProps = {
 }
@@ -21,7 +22,7 @@ export const Banner: React.FC = () => {
             <SearchBar />
           </BannerLeft>
           <BannerRight>
-            <img src='/assets/images/banner_right.png' />
+            <StyledImage src='/assets/images/banner_right.png' alt='banner' />
           </BannerRight>
         </Grid>
       </Container>

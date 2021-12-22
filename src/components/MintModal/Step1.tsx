@@ -26,18 +26,20 @@ export const Step1: React.FC<Step1Props> = (props) => {
   const { account, library } = useEthers();
   const [hasFunds, setHasFunds] = useState<boolean>(false);
   const [agreed, setAgreed] = useState<boolean>(false);
-  
+
+
+
   useEffect(() => {
+    const _retrieveBalance = async () => {
+      if (!account) {
+        return;
+      }
+      const newBalance = await library?.getBalance(account) || BigNumber.from(0);
+      setHasFunds(newBalance.gte(BigNumber.from(utils.parseEther(String(asset.listing?.price)))));
+    }
     _retrieveBalance();
   }, [account]);
 
-  const _retrieveBalance = async () => {
-    if (!account) {
-      return;
-    }
-    const newBalance = await library?.getBalance(account) || BigNumber.from(0);
-    setHasFunds(newBalance.gte(BigNumber.from(utils.parseEther(String(asset.listing?.price)))));
-  }
 
   const _handleMint = async (): Promise<void> => {
     handleNextStep();

@@ -22,7 +22,7 @@ export const Marketplace: React.FC = () => {
 
   const _renderTitle = () => {
     if (searchValue) {
-      return <Title>Search result for: "{searchValue}"</Title>;
+      return <Title>Search result for: &quot;{searchValue}&quot;</Title>;
     }
     return <Title>All Categories</Title>;
   }

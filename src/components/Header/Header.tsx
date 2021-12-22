@@ -16,19 +16,19 @@ export const Header: React.FC = () => {
           </Link>
           <Menu>
             <MenuList>
-              <Link href='/#explore'>
+              <Link href='/#explore' passHref>
                 <MenuListItem>
                   <a>Explore</a>
                 </MenuListItem>
               </Link>
               <Restricted to='asset.create'>
-                <Link href='/asset/create'>
+                <Link href='/asset/create' passHref>
                   <MenuListItem>
                     <a>Create</a>
                   </MenuListItem>
                 </Link>
               </Restricted>
-              <Link href='/contact'>
+              <Link href='/contact' passHref>
                 <MenuListItem>
                   <a>Contact</a>
                 </MenuListItem>

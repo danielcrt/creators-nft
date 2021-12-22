@@ -150,7 +150,7 @@ export const ListButton: React.FC<ListButtonProps> = (props) => {
         style={customStyles}
       >
         <Header>
-          <h2>List "<b>{asset.name}</b>"</h2>
+          <h2>List &quot;<b>{asset.name}</b>&quot;</h2>
           <CloseLineIcon onClick={_toggleIsOpen} />
         </Header>
         <HR />

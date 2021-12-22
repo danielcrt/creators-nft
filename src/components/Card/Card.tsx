@@ -3,7 +3,7 @@ import React from 'react'
 import { HR } from '../../common/styles'
 import { Asset } from '../../types/Asset'
 import { Button } from '../Button'
-import { Body, Footer, ImageContainer, Title, Wrapper, Header } from './Card.styles'
+import { Body, Footer, ImageContainer, Title, Wrapper, Header, StyledImage } from './Card.styles'
 import { Avatar } from '../Avatar'
 import { shortenAddress, useEthers } from '@usedapp/core'
 
@@ -23,10 +23,10 @@ export const Card: React.FC<CardProps> = (props) => {
             <a>{asset.owner ? shortenAddress(asset.owner) : '@creatorsdesigns'}</a>
           } />
       </Header>
-      <Link href={`/asset/${asset.id}`}>
+      <Link href={`/asset/${asset.id}`} passHref>
         <Body>
           <ImageContainer>
-            <img src={asset.media?.[0].media['500']} />
+            <StyledImage src={asset.media?.[0].media['500'] || ''} alt={`asset-${asset.id}`} />
           </ImageContainer>
           <Title>{asset.name}</Title>
         </Body>

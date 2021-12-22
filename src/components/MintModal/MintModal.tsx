@@ -50,7 +50,7 @@ export const MintModal: React.FC<ReactModal.Props & MintModalProps> = (props) =>
     } else if (state.status === 'Success') {
       Toast.success('You have successfully minted this token.');
     }
-  }, [state.status]);
+  }, [state.status, state.errorMessage]);
 
   const _handleNextStep = () => {
     setCurrentStep(currentStep + 1);
@@ -61,8 +61,8 @@ export const MintModal: React.FC<ReactModal.Props & MintModalProps> = (props) =>
   }
 
   const steps = [
-    <Step1 asset={asset} mint={send} handleNextStep={_handleNextStep} />,
-    <Step2 state={state} handlePreviousStep={_handlePreviousStep} handleClose={props.onRequestClose} />
+    <Step1 key={1} asset={asset} mint={send} handleNextStep={_handleNextStep} />,
+    <Step2 key={2} state={state} handlePreviousStep={_handlePreviousStep} handleClose={props.onRequestClose} />
   ];
 
   return (
@@ -71,7 +71,7 @@ export const MintModal: React.FC<ReactModal.Props & MintModalProps> = (props) =>
       {...props}
     >
       <Header>
-        <h2>Minting <b>"{asset.name}"</b></h2>
+        <h2>Minting <b>&quot;{asset.name}&quot;</b></h2>
         <CloseLineIcon onClick={props.onRequestClose} />
       </Header>
       <HR />

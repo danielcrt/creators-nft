@@ -41,24 +41,25 @@ export const BannerRight = styled.div`
   display: grid;
   align-items: center;
   justify-content: flex-end;
-  
-  img {
-    @media (max-width: 767px) {
-      display: none;
-    }
-    max-height: 500px;
-    object-fit: contain;
-
-    -webkit-animation: fadein 3s; /* Safari, Chrome and Opera > 12.1 */
-       -moz-animation: fadein 3s; /* Firefox < 16 */
-        -ms-animation: fadein 3s; /* Internet Explorer */
-         -o-animation: fadein 3s; /* Opera < 12.1 */
-            animation: fadein 3s;
-  }
+  position: relative;
 `;
 
 export const Title = styled.h1`
   font-size: calc(32px + 1.46484vw);
   line-height: 1.2;
   letter-spacing: -.02em;
+`;
+
+export const StyledImage = styled.img`
+  @media (max-width: 767px) {
+    display: none;
+  }
+  max-height: 500px;
+  object-fit: contain;
+
+  -webkit-animation: fadein 3s; /* Safari, Chrome and Opera > 12.1 */
+     -moz-animation: fadein 3s; /* Firefox < 16 */
+      -ms-animation: fadein 3s; /* Internet Explorer */
+       -o-animation: fadein 3s; /* Opera < 12.1 */
+          animation: fadein 3s;
 `;

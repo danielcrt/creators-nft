@@ -1,21 +1,30 @@
 import React from 'react'
-import { Container } from './Avatar.styles'
+import { Container, StyledImage } from './Avatar.styles'
 
 export type AvatarProps = {
   text?: JSX.Element | string;
   image: JSX.Element | string;
-  size?: number;
   textPosition?: 'right' | 'bottom'
+} & AvatarOptionalProps;
+
+type AvatarOptionalProps = {
+  size?: number | string;
 }
-export const Avatar: React.FC<AvatarProps> = (props) => {
+const defaultProps: AvatarOptionalProps = {
+  size: 32
+}
+
+const Avatar: React.FC<AvatarProps> = (props) => {
   const {
     text,
+    size,
     image
   } = props;
+
   return (
     <Container {...props}>
       {typeof image === 'string' ?
-        <img src={image} alt='' />
+        <StyledImage src={image} alt='' width={size} height={size} />
         :
         image
       }
@@ -23,3 +32,7 @@ export const Avatar: React.FC<AvatarProps> = (props) => {
     </Container>
   )
 }
+
+Avatar.defaultProps = defaultProps;
+
+export { Avatar };

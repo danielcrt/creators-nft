@@ -8,7 +8,7 @@ export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   error?: string | null;
 }
 
-export const Input = React.forwardRef<HTMLInputElement, InputProps>((props, ref) => {
+const Input = React.forwardRef<HTMLInputElement, InputProps>((props, ref) => {
   const {
     label,
     prepend,
@@ -28,4 +28,8 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>((props, ref)
       <Error>{error}</Error>
     </Container>
   )
-})
+});
+
+Input.displayName = 'Input';
+
+export default Input;

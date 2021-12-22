@@ -71,7 +71,7 @@ const Contact: NextPage = () => {
 
   const _renderContactForm = () => {
     if (success) {
-      return <SuccessMessage><CheckLineIcon /> Thank you for reaching out. We'll get back to you shortly.</SuccessMessage>
+      return <SuccessMessage><CheckLineIcon /> Thank you for reaching out. We&lsquo;ll get back to you shortly.</SuccessMessage>
     }
     return <React.Fragment>
       {_renderContactFormTitle()}
@@ -102,7 +102,7 @@ const Contact: NextPage = () => {
     <Wrapper>
       <ContactGrid>
         <ContactBackground>
-          <img src='/assets/images/contact.jpeg' />
+          <img src='/assets/images/contact.jpeg' alt='Contact' />
         </ContactBackground>
         <Content>
           <h1>Hi, 🖐</h1>

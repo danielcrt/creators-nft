@@ -13,15 +13,17 @@ export const ContactGrid = styled.div`
     width: 100%;
     height: 100%;
     object-fit: cover;
+    transition: 0.4s opacity;
   }
 `;
 
 export const ContactBackground = styled.div`
--webkit-animation: fadein 1s; /* Safari, Chrome and Opera > 12.1 */
--moz-animation: fadein 1s; /* Firefox < 16 */
- -ms-animation: fadein 1s; /* Internet Explorer */
-  -o-animation: fadein 1s; /* Opera < 12.1 */
-     animation: fadein 1s;
+  position: relative;
+  -webkit-animation: fadein 1s; /* Safari, Chrome and Opera > 12.1 */
+  -moz-animation: fadein 1s; /* Firefox < 16 */
+  -ms-animation: fadein 1s; /* Internet Explorer */
+    -o-animation: fadein 1s; /* Opera < 12.1 */
+      animation: fadein 1s;
 `;
 
 export const ContactFormContainer = styled.div`

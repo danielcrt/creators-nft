@@ -14,8 +14,8 @@ import { ListButton } from '../../components/ListButton'
 import { MintModal } from '../../components/MintModal'
 import Restricted from '../../components/Restricted/Restricted'
 import { Toast } from '../../components/Toast/toast'
-import Page404 from '../404'
-import { getAsset } from '../api/asset/assets'
+import Page404 from '../404/index.page'
+import { useAsset } from '../api/asset/assets'
 import { AssetSkeleton } from './asset.skeleton'
 import { Actions, AgreementLink, AssetDetails, AssetGrid, BlockchainContainer, Header, ImageContainer, OwnerContainer, StoreImage, StoresContainer, StoresTitle } from './asset.styles'
 
@@ -25,7 +25,7 @@ const Asset: NextPage = () => {
   const theme = useTheme();
   const { id } = router.query;
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const { asset, error, mutate } = getAsset(id as string);
+  const { asset, error, mutate } = useAsset(id as string);
 
   const _renderPrice = (): JSX.Element | null => {
     if (!asset?.listing?.expires_at || !asset?.listing?.price) {
@@ -60,15 +60,15 @@ const Asset: NextPage = () => {
     return <React.Fragment>
       <StoresTitle>View on:</StoresTitle>
       <StoresContainer>
-        <a href={`https://${etherscanBaseUrl}/token/${asset.collection?.address}?a=${asset.token_id}#inventory`} target='_blank'>
+        <a href={`https://${etherscanBaseUrl}/token/${asset.collection?.address}?a=${asset.token_id}#inventory`} target='_blank' rel='noreferrer'>
           <StoreImage>
-            <img src='/assets/images/etherscan-logo.png' />
+            <img src='/assets/images/etherscan-logo.png' alt='Etherscan' />
           </StoreImage>
         </a>
         <a href={`https://opensea.io/assets/${asset.collection?.address}/${asset.token_id}`}>
 
           <StoreImage>
-            <img src='/assets/images/open-sea-logo.png' />
+            <img src='/assets/images/open-sea-logo.png' alt='Open Sea' />
           </StoreImage>
         </a>
       </StoresContainer>
@@ -103,7 +103,7 @@ const Asset: NextPage = () => {
       <Container>
         <AssetGrid>
           <ImageContainer>
-            <img src={asset.media?.[0].media['500']} alt={asset.name} />
+            <img src={asset.media?.[0].media['500'] || ''} alt={asset.name} />
           </ImageContainer>
           <AssetDetails>
             <Header>

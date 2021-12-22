@@ -1,18 +1,15 @@
 import { NextPage } from 'next'
-import React, { ChangeEvent, useEffect, useState } from 'react'
-import { Container, Error, HR } from '../../../common/styles'
+import React, { ChangeEvent, useState } from 'react'
+import { Container, Error } from '../../../common/styles'
 import { Input } from '../../../components/Input'
 import { TextArea } from '../../../components/TextArea'
-import { AssetGrid, ImageContainer, AssetDetails, ImageSquare } from '../create/create.styles'
+import { AssetGrid, ImageContainer, AssetDetails, ImageSquare } from './create.styles'
 import { Button } from '../../../components/Button'
 import { useRouter } from 'next/router'
-import { UpdateAssetRequest, getAsset, updateAsset, deleteAsset } from '../../api/asset/assets'
+import { createAsset, CreateAssetRequest } from '../../api/asset/assets'
 import Restricted from '../../../components/Restricted/Restricted'
 import { Toast } from '../../../components/Toast/toast'
 import { ResponseErrorMeta } from '../../../types'
-import Page404 from '../../404'
-import { AssetSkeleton } from '../asset.skeleton'
-import { Header } from './edit.styles'
 
 const initialFormState = {
   name: '',
@@ -20,28 +17,12 @@ const initialFormState = {
   media: undefined,
 };
 
-const AssetEdit: NextPage = () => {
+const Create: NextPage = () => {
   const router = useRouter();
-  const { id } = router.query;
-  const assetId = id as string;
-
-  const { asset, error } = getAsset(assetId);
   const [errors, setErrors] = useState<ResponseErrorMeta>({});
   const [submitting, setSubmitting] = useState<boolean>(false);
-  const [deleting, setDeleting] = useState<boolean>(false);
-  const [form, setForm] = useState<UpdateAssetRequest>(initialFormState);
+  const [form, setForm] = useState<CreateAssetRequest>(initialFormState);
   const [mediaData, setMediaData] = useState<string | null>();
-
-  useEffect(() => {
-    if (!asset) {
-      return;
-    }
-    setForm({
-      name: asset?.name,
-      description: asset?.description,
-      media: undefined,
-    });
-  }, [asset])
 
   const _renderSaveButton = () => {
     if (submitting) {
@@ -53,7 +34,6 @@ const AssetEdit: NextPage = () => {
       Save
     </Button>;
   }
-
 
   const _handleSelectedMedia = (event: ChangeEvent<HTMLInputElement>) => {
     const { files } = event.target;
@@ -92,53 +72,40 @@ const AssetEdit: NextPage = () => {
   }
 
   const _renderImageContent = () => {
-    return <img src={mediaData ? mediaData : asset?.media?.[0].media[1000]} />
+    if (mediaData) {
+      return <React.Fragment>
+        <img src={mediaData} alt='Media' />
+      </React.Fragment>;
+    }
+    return <React.Fragment>
+      <h3>Drag and drop your file</h3>
+      <p>JPG, PNG, GIF, WEBP or JPEG . Max 100mb.</p>
+      <br />
+      <p>or choose a file</p>
+      <br />
+      <Button variant='secondary'>
+        Browse files
+      </Button>
+      <br />
+      {errors['media'] && <Error>{errors['media']}</Error>}
+    </React.Fragment>;
   }
 
   const _handleSave = async () => {
     setSubmitting(true);
-    const response = await updateAsset(assetId, {
+    const response = await createAsset({
       ...form,
     });
     setSubmitting(false);
     if (!response.error && !response.networkError) {
-      Toast.success('Asset successfully updated');
-      setErrors({});
+      Toast.success('Asset successfully created');
+      setForm(initialFormState);
+      setMediaData(null);
+      router.push(`/asset/${response.data.id}`)
     } else if (response.error) {
       setErrors(response.error.meta);
     }
   }
-
-  const _handleDelete = async () => {
-    setDeleting(true);
-    const response = await deleteAsset(assetId);
-    if (!response.error && !response.networkError) {
-      Toast.success('Asset successfully deleted');
-      router.push('/');
-    } else if (response.error) {
-      setDeleting(false);
-      Toast.error('There was an error deleting the asset.');
-    }
-  }
-
-  const _renderDeleteButton = () => {
-    if(asset?.token_id) {
-      return;
-    }
-    if (deleting) {
-      return <p>Deleting...</p>
-    }
-    return <Button
-      variant='danger'
-      onClick={_handleDelete}>
-      Delete
-    </Button>;
-  }
-
-  if (!asset && !error) {
-    return <AssetSkeleton />
-  }
-  if (!asset) return <Page404 />;
   return (
     <Restricted to='asset.create'>
       <Container>
@@ -153,13 +120,6 @@ const AssetEdit: NextPage = () => {
             </ImageContainer>
           </ImageSquare>
           <AssetDetails>
-            <Header>
-              <h1>{asset.name}</h1>
-              <div>
-                {_renderDeleteButton()}
-              </div>
-            </Header>
-            <HR />
             <Input
               name='name'
               type='text'
@@ -186,4 +146,4 @@ const AssetEdit: NextPage = () => {
   )
 }
 
-export default AssetEdit;
+export default Create;

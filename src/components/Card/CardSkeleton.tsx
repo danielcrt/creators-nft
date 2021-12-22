@@ -17,14 +17,12 @@ export const CardSkeleton: React.FC = () => {
           }
           text={<Skeleton width={100} />} />
       </Header>
-      <Link href={`/asset/1`}>
-        <Body>
-          <ImageContainer>
-            <Skeleton height={234} />
-          </ImageContainer>
-          <Title><Skeleton /></Title>
-        </Body>
-      </Link>
+      <Body>
+        <ImageContainer>
+          <Skeleton height={234} />
+        </ImageContainer>
+        <Title><Skeleton /></Title>
+      </Body>
       <HR />
       <Footer>
         <Skeleton width={80} />

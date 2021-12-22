@@ -21,7 +21,7 @@ export const Step2: React.FC<Step2Props> = (props) => {
 
   if (state.status === 'Mining') {
     return <React.Fragment>
-      <p>Transaction in progress. You can follow its status <a target={'_blank'} href={`https://etherscan.io/tx/${state.transaction?.hash}`}>here</a></p>
+      <p>Transaction in progress. You can follow its status <a target={'_blank'} href={`https://etherscan.io/tx/${state.transaction?.hash}`} rel='noreferrer'>here</a></p>
       <p>You can safely close this window. The transaction is running in background.</p>
       <Loader
         type='Hearts'

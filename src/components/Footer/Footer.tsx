@@ -12,13 +12,13 @@ export const Footer: React.FC = () => {
         <Content>
           <Title>Follow My Journey</Title>
           <SocialMediaIcons>
-            <a target='_blank' href='https://www.instagram.com/creatorsdesigns/'>
+            <a target='_blank' href='https://www.instagram.com/creatorsdesigns/' rel='noreferrer'>
               <InstagramLineIcon size={28} />
             </a>
-            <a target='_blank' href='https://ro.pinterest.com/creatorsdesigns/_created'>
+            <a target='_blank' href='https://ro.pinterest.com/creatorsdesigns/_created' rel='noreferrer'>
               <PinterestLineIcon size={28} />
             </a>
-            <a target='_blank' href='https://www.facebook.com/thecreatorsdesigns'>
+            <a target='_blank' href='https://www.facebook.com/thecreatorsdesigns' rel='noreferrer'>
               <FacebookCircleLineIcon size={28} />
             </a>
           </SocialMediaIcons>
@@ -29,7 +29,7 @@ export const Footer: React.FC = () => {
           </Copyright>
           <br />
           <br />
-          <img src='/assets/images/favicon.png' width={60} />
+          <img src='/assets/images/favicon.png' width={60} height={60} alt='Icon' />
         </Content>
       </Container>
     </Wrapper>

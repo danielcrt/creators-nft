@@ -5,6 +5,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "export": "next export",
     "lint": "next lint",
     "cypress": "cypress open"
   },
@@ -18,7 +19,13 @@
     "@web3-react/walletlink-connector": "^6.2.8",
     "axios": "^0.24.0",
     "date-fns": "^2.27.0",
+    "extracted-loader": "^1.0.7",
+    "file-loader": "^6.2.0",
+    "ignore-loader": "^0.1.2",
+    "img-loader": "^4.0.0",
     "next": "12.0.7",
+    "next-compose-plugins": "^2.2.1",
+    "next-optimized-images": "^2.6.2",
     "qs": "^6.10.2",
     "react": "17.0.2",
     "react-datepicker": "^4.5.0",
@@ -31,6 +38,7 @@
     "remixicon-react": "^1.0.0",
     "styled-components": "^5.3.3",
     "swr": "^1.1.1",
+    "url-loader": "^4.1.1",
     "zustand": "^3.6.7"
   },
   "devDependencies": {
