@@ -10,7 +10,7 @@ import { DEFAULT_BACKEND_DATE_TIME_FORMAT, MIN_ASSET_ETH_PRICE, signAsset } from
 import { createListing, CreateListingRequest, deleteListing } from '../../pages/api/asset/listings';
 import { Asset } from '../../types';
 import { ApiResponse } from '../../types/ApiResponse';
-import { CreatorsMetadata } from '../../types/CreatorsMetadata';
+import { CreatorsDesignsMetadata } from '../../types/CreatorsDesignsMetadata';
 import { Button } from '../Button'
 import { Input } from '../Input';
 import Restricted from '../Restricted/Restricted';
@@ -77,7 +77,7 @@ export const ListButton: React.FC<ListButtonProps> = (props) => {
       return '';
     }
 
-    const assetMetadata: CreatorsMetadata = {
+    const assetMetadata: CreatorsDesignsMetadata = {
       tokenId: BigNumber.from(asset.id),
       tokenURI: asset.ipfs || '',
       creator: account!,

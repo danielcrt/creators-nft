@@ -73,7 +73,7 @@ const ConnectWallet: NextPage = () => {
   }
 
   const _handleCoinbase = async () => {
-    const walletlink = new WalletLinkConnector({ url: ETHEREUM_CHAINS[Mainnet.chainId], appName: 'Creators Patterns' })
+    const walletlink = new WalletLinkConnector({ url: ETHEREUM_CHAINS[Mainnet.chainId], appName: 'CreatorsDesigns' })
     activate(walletlink);
   }
 

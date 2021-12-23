@@ -1,6 +1,6 @@
 import { ChainId } from "@usedapp/core";
 import { JsonRpcSigner } from '@ethersproject/providers';
-import { CreatorsMetadata } from "../types/CreatorsMetadata";
+import { CreatorsDesignsMetadata } from "../types/CreatorsDesignsMetadata";
 import { Color } from "../types";
 
 type ChainList = {
@@ -17,7 +17,7 @@ export const DEFAULT_BACKEND_DATE_TIME_FORMAT = 'yyyy-MM-dd HH:mm:ss';
 export const MIN_ASSET_ETH_PRICE = 0.00005;
 
 const Types = {
-  CreatorsPatternsMetadata: [
+  CreatorsDesignsMetadata: [
     { name: 'tokenId', type: 'uint256' },
     { name: 'tokenURI', type: 'string' },
     { name: 'creator', type: 'address' },
@@ -26,7 +26,7 @@ const Types = {
   ]
 };
 
-export const signAsset = async (chainId: ChainId, asset: CreatorsMetadata, account: JsonRpcSigner, eip712Name: string, verifyingContract: string): Promise<string> => {
+export const signAsset = async (chainId: ChainId, asset: CreatorsDesignsMetadata, account: JsonRpcSigner, eip712Name: string, verifyingContract: string): Promise<string> => {
   return (await account._signTypedData(
     {
       name: eip712Name,

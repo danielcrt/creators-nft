@@ -8,7 +8,7 @@ import { Header } from './MintModal.styles';
 import { Step1 } from './Step1';
 import { Step2 } from './Step2';
 import { utils } from 'ethers';
-import CreatePatterns from '../../contracts/CreatePatterns.json';
+import CreatorsDesigns from '../../contracts/CreatorsDesigns.json';
 import { Contract } from '@ethersproject/contracts';
 import { useContractFunction } from '@usedapp/core';
 import { Toast } from '../Toast/toast';
@@ -40,7 +40,7 @@ export const MintModal: React.FC<ReactModal.Props & MintModalProps> = (props) =>
 
   const [currentStep, setCurrentStep] = useState<number>(1);
 
-  const contractInterface = new utils.Interface(CreatePatterns.abi);
+  const contractInterface = new utils.Interface(CreatorsDesigns.abi);
   const contract = new Contract(asset.collection?.address!, contractInterface);
   const { send, state } = useContractFunction(contract, 'mint');
 

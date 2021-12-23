@@ -8,7 +8,7 @@ import { Checkbox } from '../Checkbox'
 import { utils, BigNumber } from 'ethers';
 import { DEFAULT_BACKEND_DATE_TIME_FORMAT } from '../../common/utils';
 import { getTime, parse } from 'date-fns';
-import { CreatorsMetadata } from '../../types/CreatorsMetadata';
+import { CreatorsDesignsMetadata } from '../../types/CreatorsDesignsMetadata';
 
 type Step1Props = {
   asset: Asset;
@@ -40,7 +40,7 @@ export const Step1: React.FC<Step1Props> = (props) => {
 
   const _handleMint = async (): Promise<void> => {
     handleNextStep();
-    const assetMetadata: CreatorsMetadata = {
+    const assetMetadata: CreatorsDesignsMetadata = {
       tokenId: BigNumber.from(asset.id),
       tokenURI: asset.ipfs || '',
       price: utils.parseEther(String(asset.listing?.price)),
@@ -48,8 +48,6 @@ export const Step1: React.FC<Step1Props> = (props) => {
       expiresAt: getTime(parse(asset.listing?.expires_at!, DEFAULT_BACKEND_DATE_TIME_FORMAT, new Date())),
       signature: utils.arrayify(asset.listing?.signature!)!
     };
-    console.log(assetMetadata);
-    
 
     await mint(account, assetMetadata, {
       from: account,
