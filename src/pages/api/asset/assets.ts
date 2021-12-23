@@ -54,7 +54,7 @@ export const createAsset = async (parameters: CreateAssetRequest): Promise<ApiRe
     }).then(res => res.data));
 }
 
-export const updateAsset = async (id: string, parameters: UpdateAssetRequest) => {
+export const updateAsset = async (id: string, parameters: UpdateAssetRequest): Promise<ApiResponse<Asset>> => {
   return await resolve(api.post(`${resourceUrl}/${id}`,
     convertParametersToFormData(
       {

@@ -16,7 +16,7 @@ import { Input } from '../Input';
 import Restricted from '../Restricted/Restricted';
 import { Toast } from '../Toast/toast';
 import { Currency, Header } from './ListButton.styles';
-import { utils } from 'ethers';
+import { utils, BigNumber } from 'ethers';
 
 const customStyles: ReactModal.Styles = {
   content: {
@@ -77,10 +77,9 @@ export const ListButton: React.FC<ListButtonProps> = (props) => {
       return '';
     }
 
-    const tokenURI = asset.id; /**  @todo: Get token URI from Pinata */
     const assetMetadata: CreatorsMetadata = {
-      tokenId: asset.id,
-      tokenURI: tokenURI,
+      tokenId: BigNumber.from(asset.id),
+      tokenURI: asset.ipfs || '',
       creator: account!,
       price: utils.parseEther(String(listing.price)),
       expiresAt: getTime(parse(listing.expires_at, DEFAULT_BACKEND_DATE_TIME_FORMAT, new Date())),

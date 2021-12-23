@@ -11,8 +11,13 @@ export const ImageContainer = styled.div`
   border-radius: 50px;
   overflow: hidden;
   position: relative;
-  padding-bottom: 100%;
   box-shadow: rgba(255, 255, 255, 0.1) 0px 1px 1px 0px inset, rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+
+  img {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+  }
 `;
 
 export const AssetDetails = styled.div`
@@ -35,6 +40,12 @@ export const StoresContainer = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 10px;
+
+  img {
+    width: 100%;
+    height: 100px;
+    object-fit: contain;
+  }
 `;
 
 export const StoresTitle = styled.h2`

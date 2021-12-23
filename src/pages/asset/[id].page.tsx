@@ -109,15 +109,17 @@ const Asset: NextPage = () => {
             <Header>
               <h1>{asset.name}</h1>
               <Actions>
-                <Restricted to='asset.edit.own' resource={asset}>
-                  <Link href={`/asset/${id}/edit`}>
-                    <a>
-                      <Button variant='secondary'>
-                        Edit
-                      </Button>
-                    </a>
-                  </Link>
-                </Restricted>
+                {!asset.listing &&
+                  <Restricted to='asset.edit.own' resource={asset}>
+                    <Link href={`/asset/${id}/edit`}>
+                      <a>
+                        <Button variant='secondary'>
+                          Edit
+                        </Button>
+                      </a>
+                    </Link>
+                  </Restricted>
+                }
                 <ListButton
                   asset={asset}
                   mutateAsset={mutate}

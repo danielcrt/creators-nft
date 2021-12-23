@@ -2,7 +2,7 @@ import { BigNumber } from '@ethersproject/bignumber';
 import { Bytes } from '@ethersproject/bytes';
 
 export type CreatorsMetadata = {
-  tokenId: string;
+  tokenId: BigNumber;
   tokenURI: string;
   creator: string;
   price: BigNumber;

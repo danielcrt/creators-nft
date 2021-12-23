@@ -10,6 +10,8 @@ import { createAsset, CreateAssetRequest } from '../../api/asset/assets'
 import Restricted from '../../../components/Restricted/Restricted'
 import { Toast } from '../../../components/Toast/toast'
 import { ResponseErrorMeta } from '../../../types'
+import Loader from 'react-loader-spinner'
+import { useTheme } from 'styled-components'
 
 const initialFormState = {
   name: '',
@@ -19,6 +21,7 @@ const initialFormState = {
 
 const Create: NextPage = () => {
   const router = useRouter();
+  const theme = useTheme();
   const [errors, setErrors] = useState<ResponseErrorMeta>({});
   const [submitting, setSubmitting] = useState<boolean>(false);
   const [form, setForm] = useState<CreateAssetRequest>(initialFormState);
@@ -26,7 +29,13 @@ const Create: NextPage = () => {
 
   const _renderSaveButton = () => {
     if (submitting) {
-      return <p>Saving...</p>
+      return <React.Fragment>
+        <Loader
+          type='Hearts'
+          color={theme.colors.primary}
+          height={40} />
+        <p>Saving...</p>
+      </React.Fragment>
     }
     return <Button
       variant='primary'
@@ -101,7 +110,7 @@ const Create: NextPage = () => {
       Toast.success('Asset successfully created');
       setForm(initialFormState);
       setMediaData(null);
-      router.push(`/asset/${response.data.id}`)
+      router.push(`/asset/${response.data.id}`);
     } else if (response.error) {
       setErrors(response.error.meta);
     }

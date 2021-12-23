@@ -28,7 +28,6 @@ export const ImageSquare = styled.div`
 `;
 
 export const ImageContainer = styled.div<ImageContainerProps>`
-
   position: absolute;
   width: 100%;
   height: 100%;

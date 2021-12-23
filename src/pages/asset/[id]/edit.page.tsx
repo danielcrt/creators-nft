@@ -13,6 +13,8 @@ import { ResponseErrorMeta } from '../../../types'
 import Page404 from '../../404/index.page'
 import { AssetSkeleton } from '../asset.skeleton'
 import { Header } from './edit.styles'
+import Loader from 'react-loader-spinner'
+import { useTheme } from 'styled-components'
 
 const initialFormState = {
   name: '',
@@ -25,6 +27,7 @@ const AssetEdit: NextPage = () => {
   const { id } = router.query;
   const assetId = id as string;
 
+  const theme = useTheme();
   const { asset, error } = useAsset(assetId);
   const [errors, setErrors] = useState<ResponseErrorMeta>({});
   const [submitting, setSubmitting] = useState<boolean>(false);
@@ -45,7 +48,13 @@ const AssetEdit: NextPage = () => {
 
   const _renderSaveButton = () => {
     if (submitting) {
-      return <p>Saving...</p>
+      return <React.Fragment>
+        <Loader
+          type='Hearts'
+          color={theme.colors.primary}
+          height={40} />
+        <p>Saving...</p>
+      </React.Fragment>
     }
     return <Button
       variant='primary'
@@ -104,6 +113,7 @@ const AssetEdit: NextPage = () => {
     if (!response.error && !response.networkError) {
       Toast.success('Asset successfully updated');
       setErrors({});
+      router.push(`/asset/${response.data.id}`);
     } else if (response.error) {
       setErrors(response.error.meta);
     }

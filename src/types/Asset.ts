@@ -11,6 +11,7 @@ export type Asset = {
   agreement?: Agreement;
   collection?: Collection;
   listing?: Listing | null;
+  ipfs: string | undefined;
 }
 
 export type AssetMedia = {

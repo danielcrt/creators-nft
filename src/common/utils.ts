@@ -18,7 +18,7 @@ export const MIN_ASSET_ETH_PRICE = 0.00005;
 
 const Types = {
   CreatorsPatternsMetadata: [
-    { name: 'tokenId', type: 'string' },
+    { name: 'tokenId', type: 'uint256' },
     { name: 'tokenURI', type: 'string' },
     { name: 'creator', type: 'address' },
     { name: 'price', type: 'uint256' },
@@ -39,8 +39,8 @@ export const signAsset = async (chainId: ChainId, asset: CreatorsMetadata, accou
 export const hexToRgb = (hex: string): Color | null => {
   var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
   return result ? {
-      r: parseInt(result[1], 16),
-      g: parseInt(result[2], 16),
-      b: parseInt(result[3], 16)
+    r: parseInt(result[1], 16),
+    g: parseInt(result[2], 16),
+    b: parseInt(result[3], 16)
   } : null;
 }

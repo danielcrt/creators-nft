@@ -25,7 +25,6 @@ export const ImageContainer = styled.div`
   border-radius: 20px;
   overflow: hidden;
   position: relative;
-  padding-bottom: 100%;
 `;
 
 export const StyledImage = styled.img`

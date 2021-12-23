@@ -27,8 +27,6 @@ export const Step1: React.FC<Step1Props> = (props) => {
   const [hasFunds, setHasFunds] = useState<boolean>(false);
   const [agreed, setAgreed] = useState<boolean>(false);
 
-
-
   useEffect(() => {
     const _retrieveBalance = async () => {
       if (!account) {
@@ -40,17 +38,18 @@ export const Step1: React.FC<Step1Props> = (props) => {
     _retrieveBalance();
   }, [account]);
 
-
   const _handleMint = async (): Promise<void> => {
     handleNextStep();
     const assetMetadata: CreatorsMetadata = {
-      tokenId: asset.id,
-      tokenURI: asset.id,
+      tokenId: BigNumber.from(asset.id),
+      tokenURI: asset.ipfs || '',
       price: utils.parseEther(String(asset.listing?.price)),
       creator: asset.owner!,
       expiresAt: getTime(parse(asset.listing?.expires_at!, DEFAULT_BACKEND_DATE_TIME_FORMAT, new Date())),
       signature: utils.arrayify(asset.listing?.signature!)!
     };
+    console.log(assetMetadata);
+    
 
     await mint(account, assetMetadata, {
       from: account,
