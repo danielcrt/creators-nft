@@ -9,7 +9,9 @@ type ChainList = {
 
 export const ETHEREUM_CHAINS: ChainList = {
   1: 'https://mainnet.infura.io/v3/' + process.env.NEXT_PUBLIC_INFURA_PROJECT_ID,
-  5: 'https://goerli.infura.io/v3/' + process.env.NEXT_PUBLIC_INFURA_PROJECT_ID
+  3: 'https://ropsten.infura.io/v3/' + process.env.NEXT_PUBLIC_INFURA_PROJECT_ID,
+  5: 'https://goerli.infura.io/v3/' + process.env.NEXT_PUBLIC_INFURA_PROJECT_ID,
+  1337702: ''
 }
 
 export const DEFAULT_BACKEND_DATE_TIME_FORMAT = 'yyyy-MM-dd HH:mm:ss';

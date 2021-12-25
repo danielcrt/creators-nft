@@ -1,4 +1,4 @@
-import { Mainnet, shortenAddress, useEthers } from '@usedapp/core'
+import { DEFAULT_SUPPORTED_CHAINS, Mainnet, shortenAddress, useEthers } from '@usedapp/core'
 import { format, parse } from 'date-fns'
 import { NextPage } from 'next'
 import Link from 'next/link'
@@ -52,7 +52,7 @@ const Asset: NextPage = () => {
     }
     let etherscanBaseUrl = 'etherscan.io';
     if (chainId !== Mainnet.chainId) {
-      etherscanBaseUrl = 'goerli.' + etherscanBaseUrl;
+      etherscanBaseUrl = DEFAULT_SUPPORTED_CHAINS[chainId!].chainName.toLowerCase() + '.' + etherscanBaseUrl;
     }
     if (!asset.token_id) {
       return null;

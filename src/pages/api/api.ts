@@ -3,16 +3,11 @@ import { refresh, REFRESH_TOKEN_URL } from './user/auth';
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || '/';
 
-axios.defaults.withCredentials = true;
-axios.defaults.baseURL = API_BASE_URL;
-
 const api = axios.create({
   withCredentials: true,
   baseURL: API_BASE_URL,
 });
 
-api.defaults.withCredentials = true;
-api.defaults.baseURL = API_BASE_URL;
 // Response interceptor for API calls
 api.interceptors.response.use((response) => {
   return response;
