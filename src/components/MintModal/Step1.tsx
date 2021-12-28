@@ -36,6 +36,7 @@ export const Step1: React.FC<Step1Props> = (props) => {
       setHasFunds(newBalance.gte(BigNumber.from(utils.parseEther(String(asset.listing?.price)))));
     }
     _retrieveBalance();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [account]);
 
   const _handleMint = async (): Promise<void> => {

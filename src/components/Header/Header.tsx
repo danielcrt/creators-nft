@@ -4,11 +4,15 @@ import { ButtonsContainer, Logo, Menu, MenuList, MenuListItem, StyledHeader, Wra
 import Link from 'next/link'
 import { ProfileMenu } from './ProfileMenu';
 import Restricted from '../Restricted/Restricted';
+import Head from 'next/head';
 
 export const Header: React.FC = () => {
 
   return (
     <StyledHeader>
+      <Head>
+        <title>The Creators Designs | NFT Marketplace</title>
+      </Head>
       <Container>
         <Wrapper>
           <Link href='/'>
